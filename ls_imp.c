@@ -52,6 +52,7 @@ int main() {
 
   DIR *directory;
   struct dirent *dir;
+  
   directory = opendir(".");
   if (directory) {
     while ((directory = readdir(directory)) != NULL) {
