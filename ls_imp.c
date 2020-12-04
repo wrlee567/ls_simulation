@@ -41,6 +41,7 @@ void getAndPrintUserName(uid_t uid) {
   }
 }
 
+
 void change_date(char *string, time_t *time){
 
   strftime(string, D_LEN, "%b %e %Y %R", localtime(time));
@@ -49,19 +50,6 @@ void change_date(char *string, time_t *time){
 
 
 int main() {
-
-  struct group *grp;
-
-  // getAndPrintGroup(1001);
-  // getAndPrintGroup(514378);
-  // getAndPrintGroup(103);
-  // getAndPrintGroup(1000);
-  
-  // getAndPrintUserName(59894);
-  // getAndPrintUserName(23524);
-  // getAndPrintUserName(20746);
-  // getAndPrintUserName(5970);
-  // getAndPrintUserName(10485);
 
   DIR *directory;
   
@@ -90,11 +78,16 @@ int main() {
        printf("%s", dateString);
 //i_num.st_ino
     
+      if(i_num.st_mode){
+
+        printf("readers have all permissions\n");
+      }
 
       if(check != 0){
         printf("Error - recvfrom error: %s\n", strerror(errno));
       }
       // getAndPrintUserName(i_num->st_ino);
+      
 
     
     }
@@ -106,11 +99,8 @@ int main() {
   printf("\n");
 
 
-  // printf("this is the inode number: %li", i_num->st_ino);
   return(0);
 
-
-	// return 0;
 
 }
 
