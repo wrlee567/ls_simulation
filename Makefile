@@ -2,7 +2,7 @@ CC=gcc  #compiler
 TARGET= UnixLs
 
 all:
-	$(CC) UnixLs.c -o $(TARGET)
+	$(CC) UnixLs.c infodemo.c -lm -o $(TARGET)
 valgrind:
 	
 
