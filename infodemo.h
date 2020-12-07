@@ -3,6 +3,9 @@ void getAndPrintGroup(gid_t grpNum);
 
 void getAndPrintUserName(uid_t uid) ;
 
-void listall_ls();
+void standardls();
+void listall_ls(char* dlabel);
 
-void inode_ls();
+void inode_ls(char* dlabel);
+
+void recursive_ls(char * dlabel , int ind );

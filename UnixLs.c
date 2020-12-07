@@ -11,39 +11,74 @@
 
 int count;
 
-int main(int argc, char const *argv[])
+int main(int argc,  char *argv[])
 {
-        listall_ls();
-        // for (int i = 4; i < 9; i= i+2)
-    // {
-    //     if (int argv[i] == "i" || int argv[i] =="R" ||int argv[i]=="l")
+    
+        // 
+        // printf("current : %s\n", argv[1]);
+
+            if (argc == 1)
+            {         
+                printf("run the program at the standard option\n");
+                    printf("this is the file path : ./\n");
+                standardls("./"); 
+                return 1;
+            }
+            else
+            {
+                
+                if(strcmp(argv[1], "-l" ) ==0) {
+                    printf("run the program at the l option\n");
+                        printf("this is the file path :%s\n",argv[2] );
+                    listall_ls(argv[2]);
+                }    
+                if(strcmp(argv[1], "-R" ) ==0) {
+                    printf("run the program at the R option\n");
+                        printf("this is the file path :%s\n", argv[2]);
+                    recursive_ls(argv[2], 0);
+                }   
+                if(strcmp(argv[1], "-i" ) ==0) {
+                    printf("run the program at the i option\n");
+                        printf("this is the file path :%s\n", argv[2]);
+                    inode_ls(argv[2]);
+                }  
+                else
+                {
+                printf("run the program at the standard option\n");
+                    printf("this is the file path : ./\n");
+                standardls(argv[1]); 
+                }
+                
+            }
+            
+
+
+                                             
+    
+    //     if (int argv[1] == "i" || int argv[1] =="R" ||int argv[1]=="l")
     //     {
     //         printf("have to do the command here");
     //         count ++;
     //     }
 
-    
-
-    // }
     // if (count)
     // {
     //     for (int i = 0; i < count; i++)
     //     {
-    //         if(argv[i] =="i") {
+    //         if(argv[1] =="-i") {
     //             printf("run the program at the i option")
     //         }
-            // if(argv[i] =="l") {
-            //     printf("run the program at the l option");
-            //     char* 
-            // }
-    //         if(argv[i] =="R") {
+    //         if(argv[1] =="-l") {
+    //             printf("run the program at the l option");
+    //             char* 
+    //         }
+    //         if(argv[1] =="-R") {
     //             printf("run the program at the R option")
     //         }          
     //     }
-        
     // }
     // else{
-            // DIR * d;
+        //    DIR * d;
         // struct dirent* dirr;
         // d = opendir(argv[1]);
         // if (d== NULL){
@@ -63,8 +98,6 @@ int main(int argc, char const *argv[])
         // }
         // closedir(d);
     // }
-
-    
     return 0;
 }
 
