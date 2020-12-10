@@ -260,79 +260,57 @@ void print_ls(char *dirToPrint){
 
 }
 
-// void do_recur(char * dirToPrint){
-// DIR * directory;
-// struct dirent *dir;
-// struct stat i_num;
-// int check = -6;
-// char path_1 [1024];
-// char path_2 [1024];
+void do_recur(char * dirToPrint){
+// print_l(dirToPrint);
+DIR * directory;
+struct dirent *dir;
+struct stat i_num;
+int check = -6;
+char path_1 [1024];
+char path_2 [1024];
 
 
-// directory = opendir(dirToPrint);
-
-//   while ((dir = readdir(directory)) != NULL){
-
-//     if((strcmp(dir->d_name,".")==0 || strcmp(dir->d_name,"..")==0 || (*dir->d_name) == '.' )){
-//       continue;
-//     }else{
-//       puts(dirToPrint);
-//       printf("\n");
-//       printf(" hii %-5s ",dir->d_name);
-//       sprintf(path_1,"%s/%s",dirToPrint,dir->d_name);
-//       lstat(path_2, &i_num);
-
-//       if(S_ISDIR(i_num.st_mode) != NULL){
-//         printf("in here");
-//         strcpy(path_2,dirToPrint);
-//         strcat(path_2, "/");
-//         strcat(path_2, dir->d_name);
-//         do_recur(path_2);
-
-//       }
-
-//     }
-
-
-//   }
-
-
-// }
-
-void recursive_ls(char * dlabel){
-  print_l(dlabel);
-  struct dirent *read;
-  struct stat fcheck;
-  char path[1024];
-  DIR * dir; 
-  int scan = 9;
-
-  dir = opendir(dlabel);
-  if (dir== NULL){
-      // printf("no directory given\n");
-      return;
-  }
+directory = opendir(dirToPrint);
   printf("\n");
   printf("\n");
-  puts(dlabel);
-  while((read = readdir(dir))!=  NULL)
-  {
+  puts(dirToPrint);
 
-    if(   strcmp(read->d_name,".")!=0 && strcmp(read->d_name,"..")!=0 && (*read->d_name) != '.'  )
-    {     
-            printf("%s  ", read->d_name);
-            strcpy(path, dlabel); //dlabel  = hentaikya
-            strcat(path, "/");
-            strcat(path, read->d_name); //path = ./hentaikya/animedesu
-            recursive_ls(path);
-    }   
+  if(directory == NULL){
+    return ;
   }
-  closedir(dir);
+
+  print_i(dirToPrint);
+  rewinddir(directory);
+  while ((dir = readdir(directory)) != NULL){
+
+    if((strcmp(dir->d_name,".")==0 || strcmp(dir->d_name,"..")==0 || (*dir->d_name) == '.' )){
+      continue;
+    }else{
+      sprintf(path_1,"%s/%s",dirToPrint,dir->d_name);
+      check = lstat(path_1, &i_num);
+
+    if(check != 0){
+      printf("Error - recvfrom error: %s\n", strerror(errno));
+    }
+
+      if((i_num.st_mode & S_IFMT) == S_IFDIR){
+        strcpy(path_2,dirToPrint);
+        strcat(path_2, "/");
+        strcat(path_2, dir->d_name);
+        do_recur(path_2);
+
+      }
+
+    }
+
+
+  }
+  printf("\n");
+
 }
 
 
 
-// void 
 int main(int argc, char *argv[]) {
 
   // char path[1024];
@@ -341,7 +319,7 @@ int main(int argc, char *argv[]) {
 
 
 
-  recursive_ls(argv[1]);
+  do_recur(argv[1]);
 
   // DIR *directory;
   
